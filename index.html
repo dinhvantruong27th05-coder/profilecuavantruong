@@ -1,207 +1,383 @@
+```html
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Tiệm Nhà Bông</title>
 
 <style>
 
 :root{
---bg:#140012;
---fg:#ffe6f7;
---cyan:#ff4dc4;
---vio:#c77dff;
 
---glow:0 0 25px rgba(255,77,196,.45),0 0 60px rgba(199,125,255,.35);
---card-bg:rgba(20,0,18,.55);
+--bg:#02030A;
+
+--c1:#00ffff;
+--c2:#8a2be2;
+--c3:#ff00ff;
+
+--text:#eaffff;
+
+--glass:rgba(0,0,0,.45);
+
 }
 
-html,body{
-height:100%;
+*{
+box-sizing:border-box;
 margin:0;
-background:var(--bg);
-color:var(--fg);
-font-family:system-ui;
-overflow:auto;
+padding:0;
 }
+
+body{
+
+font-family:system-ui;
+background:var(--bg);
+color:var(--text);
+
+overflow-x:hidden;
+
+}
+
+/* galaxy */
+
+#galaxy{
+
+position:fixed;
+top:0;
+left:0;
+
+width:100%;
+height:100%;
+
+z-index:-1;
+
+}
+
+/* layout */
 
 .wrap{
-position:relative;
-z-index:2;
+
 min-height:100vh;
+
 display:flex;
-align-items:center;
 justify-content:center;
-padding:28px
+align-items:center;
+
+padding:30px;
+
 }
 
 .shell{
+
 width:100%;
 max-width:1100px;
+
 display:grid;
-grid-template-columns:1.1fr .9fr;
-gap:26px
+grid-template-columns:1fr 1fr;
+
+gap:30px;
+
 }
 
-@media (max-width:900px){
-.shell{grid-template-columns:1fr}
+@media(max-width:900px){
+
+.shell{
+grid-template-columns:1fr;
 }
+
+}
+
+/* panel */
 
 .panel{
-padding:22px;
-border-radius:18px;
-background:var(--card-bg);
-backdrop-filter:blur(12px);
-box-shadow:var(--glow);
-transition:.3s
+
+background:var(--glass);
+
+border-radius:20px;
+
+padding:25px;
+
+border:1px solid rgba(0,255,255,.25);
+
+backdrop-filter:blur(15px);
+
+box-shadow:
+
+0 0 30px rgba(0,255,255,.3),
+0 0 70px rgba(138,43,226,.25);
+
+transition:.35s;
+
+position:relative;
+
+overflow:hidden;
+
+}
+
+.panel::before{
+
+content:"";
+
+position:absolute;
+inset:0;
+
+background:linear-gradient(
+120deg,
+transparent,
+rgba(255,255,255,.05),
+transparent
+);
+
+opacity:0;
+transition:.4s;
+
+}
+
+.panel:hover::before{
+opacity:1;
 }
 
 .panel:hover{
-box-shadow:0 0 70px var(--cyan),0 0 120px var(--vio);
-transform:scale(1.02)
+
+transform:translateY(-8px) scale(1.02);
+
+box-shadow:
+
+0 0 40px var(--c1),
+0 0 120px var(--c2),
+0 0 160px var(--c3);
+
 }
+
+/* avatar */
 
 .head{
 display:flex;
 align-items:center;
-gap:16px
+gap:16px;
 }
 
 .avatar{
-position:relative;
-width:96px;
-height:96px;
+
+width:100px;
+height:100px;
+
 border-radius:50%;
+
 overflow:hidden;
-border:2px solid var(--cyan);
-box-shadow:var(--glow);
+
 cursor:pointer;
-transition:.3s
+
+border:2px solid var(--c1);
+
+box-shadow:
+0 0 15px var(--c1),
+0 0 40px var(--c2);
+
+transition:.4s;
+
+}
+
+.avatar:hover{
+
+transform:scale(1.1) rotate(3deg);
+
+box-shadow:
+0 0 40px var(--c1),
+0 0 100px var(--c2);
+
 }
 
 .avatar img{
 width:100%;
 height:100%;
-object-fit:cover
+object-fit:cover;
 }
 
-.avatar:hover{
-transform:scale(1.08)
+/* title */
+
+h1{
+
+font-size:1.8rem;
+
+background:linear-gradient(
+90deg,
+var(--c1),
+var(--c2),
+var(--c3)
+);
+
+background-size:200%;
+
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+
+animation:shine 5s linear infinite;
+
 }
 
-.online{
-position:absolute;
-right:6px;
-bottom:6px;
-width:12px;
-height:12px;
-border-radius:50%;
-background:linear-gradient(135deg,var(--cyan),var(--vio))
-}
+@keyframes shine{
 
-.title h1{
-margin:0;
-font-size:1.6rem;
-color:var(--cyan)
+0%{background-position:0%}
+
+100%{background-position:200%}
+
 }
 
 .sub{
-opacity:.9
+opacity:.85;
+margin-top:3px;
 }
 
+/* badges */
+
 .badges{
+
+margin-top:12px;
+
 display:flex;
 flex-wrap:wrap;
+
 gap:8px;
-margin:12px 0
+
 }
 
 .badge{
-font-size:.9rem;
+
 padding:6px 10px;
+
 border-radius:10px;
-background:rgba(0,0,0,.25);
-border:1px solid var(--cyan)
+
+background:rgba(0,0,0,.35);
+
+border:1px solid rgba(0,255,255,.25);
+
 }
 
-.bio{
-margin:12px 0 16px
-}
+/* buttons */
 
 .actions{
+
+margin-top:15px;
+
 display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:10px
+
+grid-template-columns:1fr 1fr;
+
+gap:10px;
+
 }
 
-.btn{
+.tile,.btn{
+
 padding:12px;
+
 border-radius:12px;
-border:1.6px solid var(--cyan);
-background:transparent;
-color:var(--cyan);
-font-weight:700;
-cursor:pointer
-}
 
-.btn:hover{
-background:linear-gradient(135deg,var(--cyan),var(--vio));
-color:#000
-}
+text-decoration:none;
 
-.section{
-margin:10px 0;
-color:var(--cyan);
-font-weight:800
-}
-
-.grid{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:12px
-}
-
-@media (max-width:900px){
-.grid{grid-template-columns:repeat(2,1fr)}
-}
-
-@media (max-width:520px){
-.grid{grid-template-columns:1fr}
-}
-
-.tile{
 display:flex;
+
 justify-content:center;
 align-items:center;
-gap:8px;
-padding:14px;
-border-radius:14px;
-text-decoration:none;
-color:var(--fg);
-background:rgba(0,0,0,.35);
-border:1px solid rgba(255,77,196,.35);
-transition:.25s
+
+gap:6px;
+
+font-weight:700;
+
+background:rgba(0,0,0,.4);
+
+border:1px solid rgba(0,255,255,.3);
+
+color:var(--text);
+
+transition:.25s;
+
+cursor:pointer;
+
 }
 
-.tile:hover{
-background:linear-gradient(135deg,var(--cyan),var(--vio));
-transform:scale(1.05)
+.tile:hover,.btn:hover{
+
+transform:scale(1.06);
+
+background:linear-gradient(
+135deg,
+var(--c1),
+var(--c2)
+);
+
+color:#000;
+
+box-shadow:
+0 0 30px var(--c1),
+0 0 80px var(--c2);
+
 }
+
+/* grid */
+
+.grid{
+
+margin-top:15px;
+
+display:grid;
+
+grid-template-columns:repeat(3,1fr);
+
+gap:12px;
+
+}
+
+@media(max-width:600px){
+
+.grid{
+grid-template-columns:1fr 1fr;
+}
+
+}
+
+/* footer */
 
 .footer{
-text-align:center;
+
 margin-top:20px;
-opacity:.8
+
+text-align:center;
+
+opacity:.7;
+
 }
 
-#galaxy{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-z-index:0
+/* heart effect */
+
+.heart{
+
+position:absolute;
+
+pointer-events:none;
+
+font-size:18px;
+
+animation:heart 1s linear forwards;
+
+}
+
+@keyframes heart{
+
+0%{
+opacity:1;
+transform:translateY(0) scale(1);
+}
+
+100%{
+opacity:0;
+transform:translateY(-80px) scale(1.6);
+}
+
 }
 
 </style>
@@ -212,6 +388,7 @@ z-index:0
 <canvas id="galaxy"></canvas>
 
 <div class="wrap">
+
 <div class="shell">
 
 <section class="panel">
@@ -219,38 +396,46 @@ z-index:0
 <div class="head">
 
 <div class="avatar" id="avatar">
+
 <img src="https://sf-static.upanhlaylink.com/img/image_20260303d07f98686e0b69ca98422945c9469394.jpg">
-<span class="online"></span>
+
 </div>
 
-<div class="title">
+<div>
+
 <h1>Tiệm Nhà Bông</h1>
-<div class="sub">Coder • Reverse • 36xSec</div>
+
+<div class="sub">
+Coder • Reverse • 36xSec
+</div>
+
 </div>
 
 </div>
 
 <div class="badges">
+
 <span class="badge">🇻🇳 Việt Nam</span>
 <span class="badge">☎ 0819159899</span>
 <span class="badge">✉ tiemnhabong1101@gmail.com</span>
+
 </div>
 
-<p class="bio">
+<p style="margin-top:10px">
 Chuyên cung cấp tài khoản premium giá rẻ 💕
 </p>
 
 <div class="actions">
 
-<a class="tile" href="https://www.facebook.com/profile.php?id=61587533871213" target="_blank">
-📘 Liên Hệ 1
+<a class="tile" href="https://facebook.com" target="_blank">
+📘 Facebook
 </a>
 
-<a class="tile" href="http://zalo.me/0819159899" target="_blank">
-💬 Liên Hệ 2
+<a class="tile" href="https://zalo.me/0819159899">
+💬 Zalo
 </a>
 
-<button class="btn" id="toggleMusicBtn">
+<button class="btn" id="musicBtn">
 🔊 Tắt nhạc
 </button>
 
@@ -260,26 +445,23 @@ Chuyên cung cấp tài khoản premium giá rẻ 💕
 
 <section class="panel">
 
-<div class="section">Dịch Vụ</div>
+<h2 style="color:var(--c1)">Dịch Vụ</h2>
 
 <div class="grid">
 
-<a class="tile" href="https://docs.google.com/spreadsheets/d/15-Q_PKUQaXtWKlcMg8sR0PFIehutrTqgViVShp4vwb8">
-📋 Bảng Giá
-</a>
-
-<a class="tile" href="https://ibb.co/JjFmDdys">
-📦 App Khác
-</a>
-
-<a class="tile" href="https://www.tiktok.com/@tiemnhabongggg">
-🎵 TikTok
-</a>
+<a class="tile" href="#">📋 Bảng Giá</a>
+<a class="tile" href="#">💎 Premium</a>
+<a class="tile" href="#">📦 App Khác</a>
+<a class="tile" href="#">🎵 TikTok</a>
+<a class="tile" href="#">👥 Group</a>
+<a class="tile" href="#">🛒 Shop</a>
 
 </div>
 
 <div class="footer">
+
 © 2026 • Tiệm Nhà Bông
+
 </div>
 
 </section>
@@ -287,28 +469,118 @@ Chuyên cung cấp tài khoản premium giá rẻ 💕
 </div>
 </div>
 
-<audio id="backgroundAudio" loop>
+<audio id="music" loop>
+
 <source src="https://files.catbox.moe/ztfmk5.mp3">
+
 </audio>
 
 <script>
 
-const audio=document.getElementById("backgroundAudio")
-const btn=document.getElementById("toggleMusicBtn")
+/* music */
 
-audio.play().catch(()=>{})
+const music=document.getElementById("music")
+const btn=document.getElementById("musicBtn")
+
+music.play().catch(()=>{})
 
 btn.onclick=()=>{
-if(audio.paused){
-audio.play()
+
+if(music.paused){
+music.play()
 btn.innerHTML="🔊 Tắt nhạc"
 }else{
-audio.pause()
+music.pause()
 btn.innerHTML="🔈 Bật nhạc"
 }
+
 }
+
+/* hearts */
+
+const avatar=document.getElementById("avatar")
+
+avatar.onclick=e=>{
+
+for(let i=0;i<6;i++){
+
+const heart=document.createElement("div")
+
+heart.className="heart"
+
+heart.innerHTML="💗"
+
+heart.style.left=e.offsetX+"px"
+
+heart.style.top=e.offsetY+"px"
+
+avatar.appendChild(heart)
+
+setTimeout(()=>heart.remove(),1000)
+
+}
+
+}
+
+/* galaxy */
+
+const c=document.getElementById("galaxy")
+const ctx=c.getContext("2d")
+
+let w,h,stars=[]
+
+function resize(){
+
+w=c.width=innerWidth
+h=c.height=innerHeight
+
+stars=[]
+
+for(let i=0;i<300;i++){
+
+stars.push({
+x:Math.random()*w,
+y:Math.random()*h,
+r:Math.random()*1.5,
+v:Math.random()*0.3
+})
+
+}
+
+}
+
+function draw(){
+
+ctx.clearRect(0,0,w,h)
+
+ctx.fillStyle="white"
+
+stars.forEach(s=>{
+
+ctx.beginPath()
+ctx.arc(s.x,s.y,s.r,0,6.28)
+ctx.fill()
+
+s.y+=s.v
+
+if(s.y>h){
+s.y=0
+s.x=Math.random()*w
+}
+
+})
+
+requestAnimationFrame(draw)
+
+}
+
+resize()
+draw()
+
+addEventListener("resize",resize)
 
 </script>
 
 </body>
 </html>
+```
