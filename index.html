@@ -1,59 +1,314 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello Kitty Themed Bio Link</title>
-    <style>
-        body {
-            background-color: #ffe6f2;
-            font-family: 'Arial', sans-serif;
-            color: #333;
-            text-align: center;
-        }
-        header {
-            background-color: #ffccff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        footer {
-            margin-top: 20px;
-            font-size: 0.8em;
-            color: #aaa;
-        }
-        .button {
-            background-color: #ff6699;
-            border: none;
-            color: white;
-            padding: 15px 32px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 4px 2px;
-            cursor: pointer;
-            border-radius: 12px;
-            transition: background-color 0.3s;
-        }
-        .button:hover {
-            background-color: #ff3366;
-        }
-    </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tiệm Nhà Bông</title>
+
+<style>
+
+:root{
+--bg:#140012;
+--fg:#ffe6f7;
+--cyan:#ff4dc4;
+--vio:#c77dff;
+
+--glow:0 0 25px rgba(255,77,196,.45),0 0 60px rgba(199,125,255,.35);
+--card-bg:rgba(20,0,18,.55);
+}
+
+html,body{
+height:100%;
+margin:0;
+background:var(--bg);
+color:var(--fg);
+font-family:system-ui;
+overflow:auto;
+}
+
+.wrap{
+position:relative;
+z-index:2;
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:28px
+}
+
+.shell{
+width:100%;
+max-width:1100px;
+display:grid;
+grid-template-columns:1.1fr .9fr;
+gap:26px
+}
+
+@media (max-width:900px){
+.shell{grid-template-columns:1fr}
+}
+
+.panel{
+padding:22px;
+border-radius:18px;
+background:var(--card-bg);
+backdrop-filter:blur(12px);
+box-shadow:var(--glow);
+transition:.3s
+}
+
+.panel:hover{
+box-shadow:0 0 70px var(--cyan),0 0 120px var(--vio);
+transform:scale(1.02)
+}
+
+.head{
+display:flex;
+align-items:center;
+gap:16px
+}
+
+.avatar{
+position:relative;
+width:96px;
+height:96px;
+border-radius:50%;
+overflow:hidden;
+border:2px solid var(--cyan);
+box-shadow:var(--glow);
+cursor:pointer;
+transition:.3s
+}
+
+.avatar img{
+width:100%;
+height:100%;
+object-fit:cover
+}
+
+.avatar:hover{
+transform:scale(1.08)
+}
+
+.online{
+position:absolute;
+right:6px;
+bottom:6px;
+width:12px;
+height:12px;
+border-radius:50%;
+background:linear-gradient(135deg,var(--cyan),var(--vio))
+}
+
+.title h1{
+margin:0;
+font-size:1.6rem;
+color:var(--cyan)
+}
+
+.sub{
+opacity:.9
+}
+
+.badges{
+display:flex;
+flex-wrap:wrap;
+gap:8px;
+margin:12px 0
+}
+
+.badge{
+font-size:.9rem;
+padding:6px 10px;
+border-radius:10px;
+background:rgba(0,0,0,.25);
+border:1px solid var(--cyan)
+}
+
+.bio{
+margin:12px 0 16px
+}
+
+.actions{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:10px
+}
+
+.btn{
+padding:12px;
+border-radius:12px;
+border:1.6px solid var(--cyan);
+background:transparent;
+color:var(--cyan);
+font-weight:700;
+cursor:pointer
+}
+
+.btn:hover{
+background:linear-gradient(135deg,var(--cyan),var(--vio));
+color:#000
+}
+
+.section{
+margin:10px 0;
+color:var(--cyan);
+font-weight:800
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:12px
+}
+
+@media (max-width:900px){
+.grid{grid-template-columns:repeat(2,1fr)}
+}
+
+@media (max-width:520px){
+.grid{grid-template-columns:1fr}
+}
+
+.tile{
+display:flex;
+justify-content:center;
+align-items:center;
+gap:8px;
+padding:14px;
+border-radius:14px;
+text-decoration:none;
+color:var(--fg);
+background:rgba(0,0,0,.35);
+border:1px solid rgba(255,77,196,.35);
+transition:.25s
+}
+
+.tile:hover{
+background:linear-gradient(135deg,var(--cyan),var(--vio));
+transform:scale(1.05)
+}
+
+.footer{
+text-align:center;
+margin-top:20px;
+opacity:.8
+}
+
+#galaxy{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+z-index:0
+}
+
+</style>
 </head>
+
 <body>
-    <header>
-        <h1>Hello Kitty Love</h1>
-        <img src='https://example.com/hello-kitty.png' alt='Hello Kitty' />
-    </header>
-    <main>
-        <h2>Welcome to My Bio Link!</h2>
-        <p>Click below to find out more about me!</p>
-        <a href="https://example.com" class="button">My Profile</a>
-        <a href="https://example.com/portfolio" class="button">Portfolio</a>
-    </main>
-    <footer>
-        <p>© 2026 Hello Kitty Fan. All rights reserved.</p>
-    </footer>
+
+<canvas id="galaxy"></canvas>
+
+<div class="wrap">
+<div class="shell">
+
+<section class="panel">
+
+<div class="head">
+
+<div class="avatar" id="avatar">
+<img src="https://sf-static.upanhlaylink.com/img/image_20260303d07f98686e0b69ca98422945c9469394.jpg">
+<span class="online"></span>
+</div>
+
+<div class="title">
+<h1>Tiệm Nhà Bông</h1>
+<div class="sub">Coder • Reverse • 36xSec</div>
+</div>
+
+</div>
+
+<div class="badges">
+<span class="badge">🇻🇳 Việt Nam</span>
+<span class="badge">☎ 0819159899</span>
+<span class="badge">✉ tiemnhabong1101@gmail.com</span>
+</div>
+
+<p class="bio">
+Chuyên cung cấp tài khoản premium giá rẻ 💕
+</p>
+
+<div class="actions">
+
+<a class="tile" href="https://www.facebook.com/profile.php?id=61587533871213" target="_blank">
+📘 Liên Hệ 1
+</a>
+
+<a class="tile" href="http://zalo.me/0819159899" target="_blank">
+💬 Liên Hệ 2
+</a>
+
+<button class="btn" id="toggleMusicBtn">
+🔊 Tắt nhạc
+</button>
+
+</div>
+
+</section>
+
+<section class="panel">
+
+<div class="section">Dịch Vụ</div>
+
+<div class="grid">
+
+<a class="tile" href="https://docs.google.com/spreadsheets/d/15-Q_PKUQaXtWKlcMg8sR0PFIehutrTqgViVShp4vwb8">
+📋 Bảng Giá
+</a>
+
+<a class="tile" href="https://ibb.co/JjFmDdys">
+📦 App Khác
+</a>
+
+<a class="tile" href="https://www.tiktok.com/@tiemnhabongggg">
+🎵 TikTok
+</a>
+
+</div>
+
+<div class="footer">
+© 2026 • Tiệm Nhà Bông
+</div>
+
+</section>
+
+</div>
+</div>
+
+<audio id="backgroundAudio" loop>
+<source src="https://files.catbox.moe/ztfmk5.mp3">
+</audio>
+
+<script>
+
+const audio=document.getElementById("backgroundAudio")
+const btn=document.getElementById("toggleMusicBtn")
+
+audio.play().catch(()=>{})
+
+btn.onclick=()=>{
+if(audio.paused){
+audio.play()
+btn.innerHTML="🔊 Tắt nhạc"
+}else{
+audio.pause()
+btn.innerHTML="🔈 Bật nhạc"
+}
+}
+
+</script>
+
 </body>
 </html>
